@@ -1,0 +1,88 @@
+class s {
+	public StringBuilder open(String s) {
+		int number = Integer.parseInt(s);
+		int count = count(number);
+		StringBuilder str = new StringBuilder("");
+		if (count == 1) {
+			if (number == 0) {
+				str.append("không");
+			} else {
+				str.append(donvi(number));
+			}
+		} else if (count == 2) {
+			if (number == 10) {
+				str.append("mười");
+			} else {
+				str.append(readSoChuc(number));
+			}
+		} else if (count == 3) {
+			str.append(readSoTram(number));
+		} else if (count == 4) {
+			str.append(readSoNghin(number));
+		}
+		return str;
+	}
+
+	public int count(int n) {
+		int dem = 0;
+		while (n > 0) {
+			n /= 10;
+			dem++;
+		}
+		return dem;
+	}
+
+	public String donvi(int a) {
+		switch (a) {
+		case 1:
+			return "một";
+		case 2:
+			return "hai";
+		case 3:
+			return "ba";
+		case 4:
+			return "bốn";
+		case 5:
+			return "năm";
+		case 6:
+			return "sáu";
+		case 7:
+			return "bảy";
+		case 8:
+			return "tám";
+		case 9:
+			return "chín";
+		default:
+			return "";
+		}
+
+	}
+
+	public String readSoChuc(int a) {
+		if (a / 10 == 1) {
+			return "mười " + donvi(a % 10);
+		} else if(a > 10){
+			return donvi(a / 10) + " mươi " + donvi(a % 10);
+		} else {
+			return donvi(a % 10);
+		}
+	}
+
+	public String readSoTram(int a) {
+		return donvi(a / 100) + " trăm " + readSoChuc(a % 100);
+	}
+
+	public String readSoNghin(int a) {
+		if(a % 1000 < 100) {
+			return donvi(a / 1000) + " nghìn lẻ " + readSoChuc(a % 100);
+		}
+		return donvi(a / 1000) + " nghìn " + readSoTram(a % 1000);
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		s a = new s();
+		System.out.println(a.open("1002"));
+	}
+}

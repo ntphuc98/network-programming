@@ -1,0 +1,5 @@
+package string;
+
+public interface IStringProcess {
+	int tinhDoDai(String str);
+}

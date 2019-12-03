@@ -1,0 +1,31 @@
+class s {
+	String[] so = { "", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
+
+	public String open(String s) {
+		Integer number = Integer.parseInt(s);
+		return docso(number, count(number)) ;
+	}
+
+	public String docso(int n, int count) {
+		if (count == 1) {
+			return n == 0 ? "không" : so[n%10];
+		}
+		return "";
+	}
+
+	public int count(int n) {
+		int dem = 0;
+		while (n > 0) {
+			n /= 10;
+			dem++;
+		}
+		return dem;
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		s a = new s();
+		System.out.println(a.open("0"));
+	}
+}

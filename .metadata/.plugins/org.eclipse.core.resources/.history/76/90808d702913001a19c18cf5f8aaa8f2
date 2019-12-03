@@ -1,0 +1,46 @@
+package server;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+/*
+ * Server UDP Java
+ * Đọc số thành chữ
+ * ntphuc
+ */
+public class TTServer {
+	DatagramSocket socket;
+	DatagramPacket incoming;
+	DatagramPacket response;
+	String msgRq;
+	String msgRp;
+
+	public TTServer(DatagramSocket socket, DatagramPacket incoming) {
+		this.socket = socket;
+		this.incoming = incoming;
+	}
+	public static void main(String[] args) {
+		DatagramSocket socket;
+		byte data[] = new byte[6000];
+		DatagramPacket incoming = new DatagramPacket(data, data.length);
+
+		try {
+			socket = new DatagramSocket(8000);
+			System.out.println("Server đang hoạt động...");
+			while (true) {
+				try {
+					socket.receive(incoming);
+					Process process = new Process(socket, incoming);
+					process.start();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

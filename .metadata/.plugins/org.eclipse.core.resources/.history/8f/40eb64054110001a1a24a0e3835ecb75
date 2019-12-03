@@ -1,0 +1,92 @@
+package server;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class Server {
+	private int port;
+	private int portClient;
+	private String name;
+	private DatagramSocket socket;
+	byte[] buffer = new byte[60000];
+	DatagramPacket incoming;
+	InetAddress addrClient;
+	Scanner sc;
+
+	public Server(int port, int portClient) {
+		this.port = port;
+		this.portClient = portClient;
+		sc = new Scanner(System.in);
+		try {
+			addrClient = InetAddress.getByName("localhost");
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
+		// tao socket
+		try {
+			socket = new DatagramSocket(port);
+		} catch (SocketException e) {
+			System.out.println("Socket Errors");
+		}
+	}
+
+	public void start() {
+		System.out.println("Nhập tên của bạn: ");
+		name = sc.nextLine();
+		// thread Receive
+		ReceiveServer receiveServer = new ReceiveServer();
+		receiveServer.start();
+
+		// thread send
+		SendServer sendServer = new SendServer();
+		sendServer.start();
+
+		System.out.println("Chat is running...");
+	}
+
+	public class ReceiveServer extends Thread {
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					incoming = new DatagramPacket(buffer, buffer.length);
+					// Chờ nhận gói tin gởi đến
+					socket.receive(incoming);
+					String msg = new String(incoming.getData(), 0, incoming.getLength());
+					System.out.println(msg);
+				} catch (IOException e) {
+					System.out.println("Receive Errors");
+				}
+			}
+		}
+	}
+
+	public class SendServer extends Thread {
+		@Override
+		public void run() {
+			while (true) {
+				// Tạo gói tin gởi chứa dữ liệu vừa nhận được
+				String msgSend = name + ": " + sc.nextLine();
+				DatagramPacket outsending = new DatagramPacket(msgSend.getBytes(), msgSend.length(), addrClient,
+						portClient);
+				// gửi
+				try {
+					socket.send(outsending);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		Server server = new Server(8000, 8080);
+		server.start();
+	}
+}

@@ -1,0 +1,5 @@
+package string;
+
+public interface IStringProcess {
+	boolean doixung(String str);
+}

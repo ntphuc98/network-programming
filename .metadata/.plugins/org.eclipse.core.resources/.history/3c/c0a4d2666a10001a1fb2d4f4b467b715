@@ -1,0 +1,8 @@
+package server1;
+
+import java.rmi.RemoteException;
+
+public interface ICaculateServer1 {
+	int add(int a, int b) throws RemoteException;
+	int sub(int a, int b) throws RemoteException;
+}

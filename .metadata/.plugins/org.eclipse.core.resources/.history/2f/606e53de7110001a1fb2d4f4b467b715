@@ -1,0 +1,7 @@
+package server1;
+
+import java.rmi.Remote;
+
+public interface IShapeServer1 extends Remote{
+	
+}

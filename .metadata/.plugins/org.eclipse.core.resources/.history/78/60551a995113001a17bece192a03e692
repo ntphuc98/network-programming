@@ -1,0 +1,19 @@
+class s {
+	
+
+	// max 9 223 372 036 854 775 807;
+	public String open(String s) {
+		
+	}
+
+	
+
+	
+}
+
+public class Main {
+	public static void main(String[] args) {
+		s a = new s();
+		System.out.println(a.open("21"));
+	}
+}

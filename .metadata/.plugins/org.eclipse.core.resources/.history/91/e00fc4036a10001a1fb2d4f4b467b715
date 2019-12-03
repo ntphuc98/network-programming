@@ -1,0 +1,72 @@
+package shape;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class Shape extends UnicastRemoteObject implements IShape{
+
+	public Shape() throws RemoteException {
+		super();
+	}
+
+	@Override
+	public float chuviTamGiac(float a, float b, float c) throws RemoteException {
+		return a + b + c;
+	}
+
+	@Override
+	public int chiviTamGiac(int a, int b, int c) throws RemoteException {
+		return a + b + c;
+	}
+
+	@Override
+	public float chuviHCN(float a, float b) throws RemoteException {
+		return (a + b) * 2;
+	}
+
+	@Override
+	public int chiviHCN(int a, int b) throws RemoteException {
+		return (a + b) * 2;
+	}
+
+	@Override
+	public float chuviHV(float a) throws RemoteException {
+		return a * 4;
+	}
+
+	@Override
+	public int chiviHV(int a) throws RemoteException {
+		return a * 4;
+	}
+
+	@Override
+	public float dientichTamGiac(float a, float b, float c) throws RemoteException {
+		return 0;
+	}
+
+	@Override
+	public int dientichTamGiac(int a, int b, int c) throws RemoteException {
+		return 0;
+	}
+
+	@Override
+	public float dientichHCN(float a, float b) throws RemoteException {
+		return a * b;
+	}
+
+	@Override
+	public int dientichHCN(int a, int b) throws RemoteException {
+		return a * b;
+	}
+
+	@Override
+	public float dientichHV(float a) {
+		return a * a;
+	}
+
+	@Override
+	public int dientichHV(int a) {
+		return a * a;
+	}
+
+}

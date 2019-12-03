@@ -1,0 +1,17 @@
+package client;
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import shape.IShape;
+
+public class ShapeClient {
+
+	public static void main(String[] args) {
+		Registry rgsty;
+		rgsty = LocateRegistry.getRegistry(8000);
+		IShape shape = (IShape) rgsty.lookup("rmi://localhost/shape");
+
+	}
+
+}

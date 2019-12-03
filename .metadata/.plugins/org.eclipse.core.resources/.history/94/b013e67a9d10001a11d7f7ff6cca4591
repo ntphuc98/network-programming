@@ -1,0 +1,21 @@
+package bai1;
+
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import calculate.Calculate;
+
+public class Server {
+
+	public static void main(String[] args) {
+		try {
+			Registry rgsty = LocateRegistry.createRegistry(8000);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		rgsty.rebind("rmi://localhost/calculate", new Process());
+	}
+
+}

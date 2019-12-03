@@ -1,0 +1,13 @@
+package bai1;
+
+import java.rmi.registry.Registry;
+import java.util.Scanner;
+
+public class Client {
+
+	public static void main(String[] args) {
+		Registry rgsty;
+		Scanner sc = new Scanner(System.in);
+	}
+
+}

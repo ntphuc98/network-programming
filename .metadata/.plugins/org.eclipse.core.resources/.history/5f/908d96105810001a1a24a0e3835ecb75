@@ -1,0 +1,14 @@
+package string;
+
+public class StringProcess implements IStringProcess {
+
+	@Override
+	public boolean doixung(String str) {
+		int i = 0;
+		char[] st = str.toCharArray();
+		for (; st.length; i++)
+			;
+		return i;
+	}
+
+}

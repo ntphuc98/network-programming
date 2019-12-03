@@ -1,0 +1,14 @@
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import server.IDemo;
+
+public class Client {
+
+	public static void main(String[] args) {
+		Registry rgsty = LocateRegistry.getRegistry(8000);
+		ICalculate demo = (ICaculate) rgsty.lookup("rmi://localhost/tinhtoan");
+
+	}
+
+}

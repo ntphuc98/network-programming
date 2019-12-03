@@ -1,0 +1,9 @@
+package server2;
+
+import java.rmi.RemoteException;
+
+import string.Remote;
+
+public interface IStringServer2 extends Remote {
+	String to_title(String str) throws RemoteException;
+}

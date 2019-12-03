@@ -1,0 +1,68 @@
+class s {
+	String[] so = { "", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
+
+	// max 9 223 372 036 854 775 807;
+	public String open(String s) {
+		long number = Long.parseLong(s);
+		if (number == 0)
+			return "không";
+		return docso(number);
+	}
+
+	public String docso(long n) {
+		int count = count(n);
+		if (count == 1) {
+			return so[(int) (n % 10)];
+		}
+		if (count == 2) {
+			if (n < 20)
+				if ((n % 10) == 0)
+					return "mười";
+				else
+					return "mười " + so[(int) (n % 10)];
+			else
+				return so[(int) (n / 10 % 10)] + " mươi " + so[(int) (n % 10)];
+		}
+		if (count == 3) {
+			if (n % 100 < 10 && n % 100 > 0) {
+				return so[(int) (n / 100 % 10)] + " trăm linh " + so[(int) (n % 10)];
+			} else if (n % 100 == 0) {
+				return so[(int) (n / 100 % 10)] + " trăm";
+			} else {
+				return so[(int) (n / 100 % 10)] + " trăm " + docso(n % 100);
+			}
+		}
+		if (count > 3 && count <= 6) {
+			if (n % 1000 == 0)
+				return docso(n / 1000) + " nghìn";
+			if ((n % 1000) / 100 == 0)
+				return docso(n / 1000) + " nghìn không trăm linh " + docso(n % 1000);
+			return docso(n / 1000) + " nghìn " + docso(n % 1000);
+		}
+		if (count > 6 && count <= 9) {
+			if (n % 1000000 == 0)
+				return docso(n / 1000000) + " triệu";
+			else
+				return docso(n / 1000000) + " triệu " + docso(n % 1000000);
+		}
+		if (count > 9)
+			return docso(n / 1000000000) + " tỷ " + docso(n % 1000000000);
+		return "";
+	}
+
+	public int count(long n) {
+		int dem = 0;
+		while (n >= 10) {
+			n /= 10;
+			dem++;
+		}
+		return dem + 1;
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		s a = new s();
+		System.out.println(a.open("1025217"));
+	}
+}

@@ -1,0 +1,46 @@
+class s {
+	String[] donvi = { "không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
+
+	public String open(String s) {
+		Integer number = Integer.parseInt(s);
+
+		int count = count(number);
+		String str = new String("");
+
+		String[] chuc = { "mười", "mươi" };
+		String[] tram = { "trăm" };
+
+		for (int i = 1; i <= count; i++) {
+			// 1001
+
+		}
+
+		return str;
+	}
+
+	public String docso(int n, int count) {
+		if(count == 1) {
+			return n == 0 ? "không" :donvi[n];
+		}
+		if(count == 2) {
+			if()
+		}
+		return "";
+	}
+
+	public int count(int n) {
+		int dem = 0;
+		while (n > 0) {
+			n /= 10;
+			dem++;
+		}
+		return dem;
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		s a = new s();
+		System.out.println(a.open("1002"));
+	}
+}

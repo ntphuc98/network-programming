@@ -1,0 +1,10 @@
+package string;
+
+public class Test {
+
+	public static void main(String[] args) {
+		StringProcess sp = new StringProcess();
+		System.out.println(sp.to_lower("A"));
+	}
+
+}

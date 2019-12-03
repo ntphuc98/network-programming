@@ -1,0 +1,38 @@
+package string;
+
+public class StringProcess implements IStringProcess {
+
+	String to_lower(String str) {
+		char s[] = str.toCharArray();
+		for (int i = 0; s[i] != '\0'; i++) {
+			if (s[i] >= 'A' && s[i] <= 'Z') {
+				s[i] = (char) (s[i] + 32);
+			}
+		}
+		return s.toString();
+	}
+
+	String to_upper(String str) {
+		char s[] = str.toCharArray();
+		for (int i = 0; s[i] != '\0'; i++) {
+			if (s[i] >= 'a' && s[i] <= 'z') {
+				s[i] = (char) (s[i] - 32);
+			}
+		}
+		return s.toString();
+	}
+
+	String to_title(String str) {
+		char s[] = str.toCharArray();
+		for (int i = 0; s[i] != '\0'; i++) {
+			if (s[i] >= 'A' && s[i] <= 'Z')
+				s[i] += 32;
+			if (s[i - 1] == ' ' || i == 0) {
+				if (s[i] >= 'a' && s[i] <= 'z')
+					s[i] = (char) (s[i] - 32);
+			}
+		}
+		return s.toString();
+	}
+
+}

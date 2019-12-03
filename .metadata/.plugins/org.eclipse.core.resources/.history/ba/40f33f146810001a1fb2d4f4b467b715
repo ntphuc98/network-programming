@@ -1,0 +1,36 @@
+package client;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import calculate.ICalculate;
+import shape.IShape;
+
+public class CalculateClient {
+
+	public static void main(String[] args) {
+		Registry rgsty;
+		Scanner sc = Scanner(System.in);
+		try {
+			rgsty = LocateRegistry.getRegistry(8000);
+			ICalculate calculate = (ICalculate) rgsty.lookup("rmi://localhost/calculate");
+			int a = 0;
+			int b = 0;
+			System.out.println("Nhập hai số:");
+			System.out.println("Nhập a: ");
+			a = sc.nex
+			System.out.println("Nhập b: ");
+			
+			System.out.println("Nhập a: ");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}

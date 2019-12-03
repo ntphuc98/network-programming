@@ -1,0 +1,44 @@
+class s {
+	public StringBuilder open(String s) {
+		int number = Integer.parseInt(s);
+		int count = count(number);
+		StringBuilder str = new StringBuilder("");
+		String[] donvi = {"", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"};
+		String[] chuc = {"mười", "mươi"};
+		String[] tram = {"trăm"};
+		if (count == 1) {
+			if (number == 0) {
+				str.append("không");
+			} else {
+				str.append(donvi(number));
+			}
+		} else if (count == 2) {
+			if (number == 10) {
+				str.append("mười");
+			} else {
+				str.append(readSoChuc(number));
+			}
+		} else if (count == 3) {
+			str.append(readSoTram(number));
+		} else if (count == 4) {
+			str.append(readSoNghin(number));
+		}
+		return str;
+	}
+
+	public int count(int n) {
+		int dem = 0;
+		while (n > 0) {
+			n /= 10;
+			dem++;
+		}
+		return dem;
+	}
+}
+
+public class Main {
+	public static void main(String[] args) {
+		s a = new s();
+		System.out.println(a.open("1002"));
+	}
+}

@@ -1,0 +1,9 @@
+package server1;
+
+public class RMIServer1 {
+
+	public static void main(String[] args) {
+		
+	}
+
+}
