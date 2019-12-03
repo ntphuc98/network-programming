@@ -1,11 +1,9 @@
-package bai1;
+package imethod;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface IProcess extends Remote{
-	float calculate(char operator, int a, int b) throws RemoteException;
-	int sRectangle(int a, int b) throws RemoteException;
+public interface IProcess2 extends Remote {
 	String to_lower(String str) throws RemoteException;
 	String to_upper(String str) throws RemoteException;
 	String to_title(String str) throws RemoteException;

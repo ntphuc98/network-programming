@@ -1,33 +1,14 @@
-package bai1;
+package server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Process extends UnicastRemoteObject implements IProcess {
-	public Process() throws RemoteException {
+import imethod.IProcess2;
+
+public class Process2 extends UnicastRemoteObject implements IProcess2{
+	public Process2() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public float calculate(char operator, int a, int b) throws RemoteException {
-		float result = 0 ;
-		switch (operator) {
-		case '+':
-			return a+b;
-		case '-':
-			return a-b;
-		case '*':
-			return a*b;
-		case '/':
-			return (float)a/(float)b;
-		}
-		return result;
-	}
-
-	@Override
-	public int sRectangle(int a, int b) throws RemoteException {
-		return a * b;
 	}
 
 	public String to_lower(String str) throws RemoteException {
