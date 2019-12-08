@@ -30,8 +30,9 @@ public class Client {
 	public void run() {
 		Receive receive = new Receive(socket);
 		receive.start();
-		printMenu();
+		
 		while(true) {
+			printMenu();
 			String msg = sc.nextLine();
 			if(msg.equals("exit")) {
 				socket.close();
@@ -60,17 +61,19 @@ public class Client {
 				String[] arr = str.split("\\+");
 				result = "+ " + arr[0].trim() + " " + arr[1].trim();
 			}
-			if(str.contains("-")) {
+			else if(str.contains("-")) {
 				String[] arr = str.split("\\-");
 				result = "- " + arr[0].trim() + " " + arr[1].trim();
 			}
-			if(str.contains("*")) {
+			else if(str.contains("*")) {
 				String[] arr = str.split("\\*");
 				result = "* " + arr[0].trim() + " " + arr[1].trim();
 			}
-			if(str.contains("/")) {
+			else if(str.contains("/")) {
 				String[] arr = str.split("\\/");
 				result = "/ " + arr[0].trim() + " " + arr[1].trim();
+			}else { 
+				result = str;
 			}
 		}
 		catch(ArrayIndexOutOfBoundsException e) {

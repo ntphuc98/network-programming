@@ -1,7 +1,0 @@
-package server2;
-
-import java.rmi.Remote;
-
-public interface ICaculateServer2 extends Remote{
-
-}

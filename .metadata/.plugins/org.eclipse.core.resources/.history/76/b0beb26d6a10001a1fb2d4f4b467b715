@@ -1,5 +1,0 @@
-package server2;
-
-public interface ICaculateServer2 {
-
-}

@@ -1,7 +1,0 @@
-package server1;
-
-import java.rmi.server.UnicastRemoteObject;
-
-public class CaculateServer1 extends UnicastRemoteObject implements ICaculateServer1{
-
-}

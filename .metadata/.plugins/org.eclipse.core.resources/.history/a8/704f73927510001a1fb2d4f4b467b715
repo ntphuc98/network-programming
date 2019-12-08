@@ -1,9 +1,0 @@
-package client;
-
-public class CalculateClient1 {
-
-	public static void main(String[] args) {
-		
-	}
-
-}

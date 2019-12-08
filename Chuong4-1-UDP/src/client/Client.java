@@ -30,8 +30,9 @@ public class Client {
 	public void run() {
 		Receive receive = new Receive(socket);
 		receive.start();
-		printMenu();
+		
 		while(true) {
+			printMenu();
 			String msg = sc.nextLine();
 			if(msg.equals("exit")) {
 				socket.close();

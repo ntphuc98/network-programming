@@ -19,8 +19,8 @@ public class May3 {
 			IProcess1 process = (IProcess1) rgsty.lookup("rmi://localhost/process");
 			Registry rgsty2 = LocateRegistry.getRegistry(8080);
 			IProcess2 process2 = (IProcess2) rgsty2.lookup("rmi://localhost/process");
-			menu();
 			while (true) {
+				menu();
 				String lc = sc.nextLine();
 				if (lc.equals("7")) {
 					System.out.println("Kết thúc chương trình !!!");

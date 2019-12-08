@@ -1,7 +1,0 @@
-package string;
-
-public interface IStringProcess {
-	String to_lower(String str);
-	String to_upper(String str);
-	String to_title(String str);
-}

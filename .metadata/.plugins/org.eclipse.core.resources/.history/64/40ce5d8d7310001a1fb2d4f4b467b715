@@ -1,5 +1,0 @@
-package server2;
-
-public interface IShapeServer2 extends Remote{
-
-}
