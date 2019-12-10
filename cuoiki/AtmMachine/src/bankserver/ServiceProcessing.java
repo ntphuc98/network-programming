@@ -9,8 +9,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
 
 import bean.Account;
+import bean.History;
 import irmi.IProcessDB;
 
 public class ServiceProcessing extends Thread {
@@ -48,6 +50,7 @@ public class ServiceProcessing extends Thread {
 						changePIN();
 						break;
 					case "5": // history
+						getHistories();
 						break;
 					case "6": // out
 						account = null;
@@ -121,6 +124,7 @@ public class ServiceProcessing extends Thread {
 		}
 	}
 
+	// 1. Vấn tin tài khoản
 	private void getBalance() throws IOException {
 		if (account != null) {
 			double balance = (double) dao.checkBalance(account);
@@ -176,6 +180,40 @@ public class ServiceProcessing extends Thread {
 			} else {
 				count++;
 				dos.writeUTF("Nhập PIN không chính xác!");
+			}
+		}
+	}
+
+	// 5. Histories
+	private void getHistories() throws IOException {
+		List<History> list = dao.getHistories(account);
+		if (list.isEmpty()) {
+			dos.writeUTF("Chưa có giao dich nào!");
+		} else {
+			dos.writeUTF("Các giao dịch gần đây:");
+			printHistories(list);
+		}
+		ask();
+	}
+
+	private void printHistories(List<History> list) throws IOException {
+		for (History s : list) {
+			String msg;
+			if (s.getType() == 1) {
+				msg = "Số tiền: +" + s.getAmount() + " VND, thời gian: " + s.getCr_date() + " , nội dung: " + s.getNote();
+				if (!s.getOther_user().isEmpty()) {
+					msg = msg + " , từ " + s.getOther_user();
+				}
+				dos.writeUTF(msg);
+			}
+			if (s.getType() == 2) {
+				msg = "Số tiền: -" + s.getAmount() + " VND, thời gian: " + s.getCr_date();
+				dos.writeUTF(msg);
+			}
+			if (s.getType() == 3) {
+				msg = "Số tiền: -" + s.getAmount() + " VND, thời gian: " + s.getCr_date() + " , nội dung: " + s.getNote()
+						+ " , chuyển đến: " + s.getOther_user();
+				dos.writeUTF(msg);
 			}
 		}
 	}

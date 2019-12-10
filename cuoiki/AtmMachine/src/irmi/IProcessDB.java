@@ -2,8 +2,10 @@ package irmi;
 
 import java.io.IOException;
 import java.rmi.Remote;
+import java.util.List;
 
 import bean.Account;
+import bean.History;
 
 public interface IProcessDB extends Remote {
 	public boolean checkCardId(String cardId) throws IOException;
@@ -11,6 +13,8 @@ public interface IProcessDB extends Remote {
 	public boolean checkActiveCardId(String cardId) throws IOException;
 
 	public Account getUser(String cardId, String pin) throws IOException;
+
+	public List<History> getHistories(Account account) throws IOException;
 
 	public float checkBalance(Account user) throws IOException;
 

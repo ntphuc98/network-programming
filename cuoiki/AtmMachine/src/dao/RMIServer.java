@@ -10,8 +10,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.Account;
+import bean.History;
 import irmi.IProcessDB;
 
 public class RMIServer extends UnicastRemoteObject implements IProcessDB {
@@ -161,5 +164,32 @@ public class RMIServer extends UnicastRemoteObject implements IProcessDB {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List<History> getHistories(Account account) throws IOException {
+		String sql = "select type, amount, other_user, note, cr_date " + 
+				"from users inner join histories " + 
+				"on users.id = histories.id_user " + 
+				"where cardID like '"+ account.getCardID() +"' and pin like '" + account.getPin() + "' " + 
+				"limit 0, 5";
+		Statement stmt;
+		List<History> list = new ArrayList<>();
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				History temp = new History();
+				temp.setType(rs.getInt("type"));
+				temp.setAmount(rs.getDouble("amount"));
+				temp.setOther_user(rs.getString("other_user"));
+				temp.setNote(rs.getString("note"));
+				temp.setCr_date(rs.getTimestamp("cr_date"));
+				list.add(temp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
