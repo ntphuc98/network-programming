@@ -79,9 +79,13 @@ public class Bank extends DAO implements Serializable {
 
 	public synchronized boolean deposit(int amount) {
 		synchronized (this) {
-			balance = balance + amount;
-			if (updateBalance(balance)) {
-				return true;
+			if ( amount >= 50000) {
+				balance = balance + amount;
+				if (updateBalance(balance)) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}

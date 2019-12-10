@@ -96,7 +96,7 @@ public class Transaction extends Thread {
 		dos.writeUTF("2. Rút tiền");
 		dos.writeUTF("2. Nạp tiền");
 		dos.writeUTF("4. Đổi mã PIN");
-		dos.writeUTF("5. Xem lịch giao dịch");
+		dos.writeUTF("5. Xem lịch sử giao dịch");
 		dos.writeUTF("6. Thoát");
 	}
 
@@ -338,12 +338,13 @@ public class Transaction extends Thread {
 						dos.writeUTF("Không hợp lệ!");
 					} else if (Service.toNumber(inputAmount) > 20000000) {
 						dos.writeUTF("Tối đa 20,000,000 VND!");
-					} else if(Service.toNumber(inputAmount) <= 50000){
+					} else if (Service.toNumber(inputAmount) <= 50000) {
 						dos.writeUTF("Tối thiểu 50,000 VND!");
-					}else if (Service.toNumber(inputAmount) > (bankAccount.getBalance() - 50000)) {
+					} else if (Service.toNumber(inputAmount) > (bankAccount.getBalance() - 50000)) {
 						dos.writeUTF("Số dư không đủ!");
 						dos.writeUTF("Số dư hiện tại: " + Service.toVNDCurrency(bankAccount.getBalance()) + " VND");
 					} else {
+						String note = inputNote();
 						int amount = Service.toNumber(inputAmount);
 						// chuyển
 						Bank otherBank = Bank.getByCardId(inputCardId);
@@ -355,7 +356,7 @@ public class Transaction extends Thread {
 							historyAccount.setType(3);
 							historyAccount.setAmount(amount);
 							historyAccount.setLastBalance(bankAccount.getBalance());
-							historyAccount.setNote("transfer to " + inputCardId);
+							historyAccount.setNote(note + "transfer to " + inputCardId);
 							historyAccount.setByAccount(account.getCardId());
 							historyAccount.save();
 						}
@@ -366,7 +367,7 @@ public class Transaction extends Thread {
 							historyOther.setType(4);
 							historyOther.setAmount(amount);
 							historyOther.setLastBalance(otherBank.getBalance());
-							historyOther.setNote("receive from " + account.getCardId());
+							historyOther.setNote(note + "receive from " + account.getCardId());
 							historyOther.setByAccount(inputCardId);
 							historyOther.save();
 						}
@@ -380,6 +381,16 @@ public class Transaction extends Thread {
 				// out while
 				break;
 			}
+		}
+	}
+
+	private String inputNote() throws IOException {
+		dos.writeUTF("Nhập nội dung chuyển tiền:");
+		String note = dis.readUTF();
+		if (note.length() > 150) {
+			return note.substring(0, 150);
+		} else {
+			return note;
 		}
 	}
 

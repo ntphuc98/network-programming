@@ -14,20 +14,10 @@ import java.sql.Statement;
 import model.Account;
 
 public class RMIDAOServer extends UnicastRemoteObject implements ICheckDB {
-	private Connection conn;
 
 	protected RMIDAOServer() throws RemoteException {
 		super();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			try {
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BANKING", "javauser", "123456");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
@@ -45,7 +35,7 @@ public class RMIDAOServer extends UnicastRemoteObject implements ICheckDB {
 	public boolean checkCardId(String cardId) throws IOException {
 		Statement stm;
 		try {
-			stm = conn.createStatement();
+			stm = DAO.getConnection().createStatement();
 			ResultSet rs = stm.executeQuery("select * from account where card_id like '" + cardId + "'");
 			if (rs.next()) {
 				return true;
@@ -61,7 +51,7 @@ public class RMIDAOServer extends UnicastRemoteObject implements ICheckDB {
 	public Account getAccount(String cardId, String pin) throws IOException {
 		Statement stm;
 		try {
-			stm = conn.createStatement();
+			stm = DAO.getConnection().createStatement();
 			ResultSet rs = stm.executeQuery(
 					"select * from account where card_id like '" + cardId + "' and pin like '" + pin + "'");
 			if (rs.next()) {
@@ -70,25 +60,8 @@ public class RMIDAOServer extends UnicastRemoteObject implements ICheckDB {
 				return account;
 			}
 		} catch (SQLException e) {
-			System.out.println("Lỗi getUser");
+			System.out.println("Lỗi getAccount");
 		}
 		return null;
-	}
-
-	@Override
-	public boolean checkPin(Account account) throws IOException {
-		String sql = "select * from account where cardId like '" + account.getCardId() + "' and pin like '"
-				+ account.getPin() + "'";
-		Statement stmt;
-		try {
-			stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			if (rs.next()) {
-				return true;
-			}
-		} catch (SQLException e) {
-			System.out.println("Lỗi checkPin");
-		}
-		return false;
 	}
 }

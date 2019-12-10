@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -37,6 +38,17 @@ public class Account extends DAO implements Serializable {
 	}
 
 	public String getPin() {
+//		String sql = "select pin from account where cardId like '" + cardId;
+//		Statement stmt;
+//		try {
+//			stmt = getConnection().createStatement();
+//			ResultSet rs = stmt.executeQuery(sql);
+//			if (rs.next()) {
+//				pin = rs.getString("pin");
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("Lỗi checkPin");
+//		}
 		return pin;
 	}
 
